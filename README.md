@@ -52,15 +52,15 @@ Este projeto apresenta um exemplo prático de implementação da SOA através de
    git clone https://github.com/usuario/arquitetura_soa.git
 
 ### Navegue até o diretório do projeto:
-   ```bash
+bash
    cd arquitetura_soa
 
 ### Instale as dependências:
-   ```bash
+bash
    pip install -r requirements.txt
 
 ### Execute o aplicativo:
-   ```bash
+bash
    flask run
 
 ## 6. Fitness Functions
