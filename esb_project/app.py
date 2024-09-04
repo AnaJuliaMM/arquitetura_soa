@@ -5,9 +5,7 @@ app = Flask(__name__)
 
 # URLs dos serviços
 HOTELS_SERVICE_URL = 'http://localhost:5001'
-RESERVATIONS_SERVICE_URL = 'http://localhost:5002'
 USERS_SERVICE_URL = 'http://localhost:5003'
-
 
 
 # Função para transformar dados (exemplo simples)
@@ -27,7 +25,7 @@ def get_hotels():
 
 @app.route('/esb/reservations/<int:id>', methods=['GET'])
 def get_reservation(id):
-    response = requests.get(f'{RESERVATIONS_SERVICE_URL}/reservations/{id}')
+    response = requests.get(f'{HOTELS_SERVICE_URL}/reservations/{id}')
     data = response.json()
     transformed_data = transform_data(data)
     return jsonify(transformed_data)
@@ -45,7 +43,7 @@ def complex_query():
     user_id = request.args.get('user_id')
     
     # Consultar o serviço de reservas para obter as reservas
-    reservations_response = requests.get(f'{RESERVATIONS_SERVICE_URL}/reservations', params={'hotel_id': hotel_id, 'user_id': user_id})
+    reservations_response = requests.get(f'{HOTELS_SERVICE_URL}/reservations', params={'hotel_id': hotel_id, 'user_id': user_id})
     reservations_data = reservations_response.json()
     
     # Consultar o serviço de hotéis e usuários
