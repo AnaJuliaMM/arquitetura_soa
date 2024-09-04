@@ -92,7 +92,7 @@ A API estará disponível em ***http://127.0.0.1:5001***.
 - URL: */reservations/<id>*
 - Método: GET
 - Parâmetros:
-   - *id* (int) - ID do hotel
+   - *id* (int) - ID da reserva
 - Resposta:
    ```sh
    {
