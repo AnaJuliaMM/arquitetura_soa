@@ -28,7 +28,7 @@ hotel_service/
 1. **Clone o repositório:**
 
    ```sh
-   git clone https://github.com/seu_usuario/flask_hotel_api.git
+   git clone <url>
    cd flask_hotel_api
    ```
 
