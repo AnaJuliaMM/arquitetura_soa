@@ -47,26 +47,23 @@ Este projeto apresenta um exemplo prático de implementação da SOA através de
 - **Flask**: Framework web para Python.
 
 ### Como Executar o Projeto:
-
 1. Clone este repositório:
-   ```bash
+bash
    git clone https://github.com/usuario/arquitetura_soa.git
-Navegue até o diretório do projeto:
 
+### Navegue até o diretório do projeto:
 bash
+   cd arquitetura_soa
 
-cd arquitetura_soa
-Instale as dependências:
-
+### Instale as dependências:
+   
 bash
+   pip install -r requirements.txt
 
-pip install -r requirements.txt
-Execute o aplicativo:
-
+### Execute o aplicativo:
 bash
-
-flask run
-
+   flask run
+   
 ## 6. Fitness Functions
 Para garantir que os objetivos da SOA foram atingidos, você pode medir:
 
