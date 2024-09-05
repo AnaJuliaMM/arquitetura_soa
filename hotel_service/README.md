@@ -1,20 +1,15 @@
-# Flask Hotel API
+# Hotel Management SOAP API
 
-Uma API simples para gerenciar informações sobre hotéis usando Flask e SQLite. A API permite obter uma lista de hotéis, obter informações sobre um hotel específico e adicionar novos hotéis.
+Este é um aplicativo de gerenciamento de hotéis que fornece uma API SOAP usando Flask e Spyne. A aplicação permite a gestão de hotéis, avaliações e reservas por meio de operações SOAP.
 
-## Tecnologias Utilizadas
+## Requisitos
 
-- [Flask](https://flask.palletsprojects.com/) - Micro framework para criação de aplicações web.
-- [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/) - Extensão para integração do Flask com SQLAlchemy e bancos de dados.
-- [SQLite](https://www.sqlite.org/) - Banco de dados SQL leve, usado para armazenamento de dados.
+- Python 3.6 ou superior
+- Flask
+- Spyne
+- SQLAlchemy
+- SQLite
 
-## Estrutura do Projeto
-hotel_service/ 
-├── app.py # Arquivo principal da aplicação Flask 
-├── models.py # Define os modelos de dados e a configuração do banco de dados 
-├── create_db.py # Script para instanciar o bando de dados 
-├── requirements.txt # Depêndencias da API 
-└── venv/ # Ambiente virtual (opcional)
 
 ## Configuração do Ambiente
 
@@ -29,10 +24,10 @@ hotel_service/
 
    ```sh
    git clone <url>
-   cd flask_hotel_api
+   cd hotel_service
    ```
 
-2. **Crie e ative um ambiente virtual (opcional, mas recomendado):**
+2. **Crie e ative um ambiente virtual:**
 
    ```sh
    python -m venv venv
@@ -69,54 +64,65 @@ Para iniciar o servidor Flask, execute o seguinte comando:
    ```
 A API estará disponível em ***http://127.0.0.1:5001***.
 
-## Endpoints
+## Endpoints SOAP
 
-### Obter todos os hotéis
 
-- URL: */hotels*
-- Método: GET
-- Resposta:
-   ```sh
-   [
-    {
-        "id": 1,
-        "name": "Hotel California",
-        "location": "California"
-    }
-   ]
-   ```
+### `get_hotels`
 
-### Obter um hotel específico
+- **Método:** `GET`
+- **Retorno:** Lista de todos os hotéis.
 
-- URL: */hotels/<id>*
-- Método: GET
-- Parâmetros:
-   - *id* (int) - ID do hotel
-- Resposta:
-   ```sh
-   {
-      "id": 1,
-      "name": "Hotel California",
-      "location": "California"
-   }
-   ```
+### `get_hotel(id)`
 
-### Adicionar um novo hotel
+- **Método:** `GET`
+- **Parâmetro:** `id` (ID do hotel)
+- **Retorno:** Detalhes do hotel especificado.
 
-- URL: */hotels*
-- Método: POST
-- Corpo da Requisição:
-   ```sh
-   {
-      "name": "Nome do Hotel",
-      "location": "Localização do Hotel"
-   }
-   ```
-- Resposta:
-   ```sh
-   {
-      "id": 1,
-      "name": "Nome do Hotel",
-      "location": "Localização do Hotel"
-   }
-   ```
+### `add_hotel(name, location)`
+
+- **Método:** `POST`
+- **Parâmetros:** `name` (Nome do hotel), `location` (Localização do hotel)
+- **Retorno:** Detalhes do hotel adicionado.
+
+### `get_reviews(hotel_id)`
+
+- **Método:** `GET`
+- **Parâmetro:** `hotel_id` (ID do hotel)
+- **Retorno:** Lista de avaliações para o hotel especificado.
+
+### `get_review(id)`
+
+- **Método:** `GET`
+- **Parâmetro:** `id` (ID da avaliação)
+- **Retorno:** Detalhes da avaliação especificada.
+
+### `add_review(hotel_id, rating, review_text)`
+
+- **Método:** `POST`
+- **Parâmetros:** `hotel_id` (ID do hotel), `rating` (Classificação), `review_text` (Texto da avaliação)
+- **Retorno:** Detalhes da avaliação adicionada.
+
+### `get_reservations`
+
+- **Método:** `GET`
+- **Retorno:** Lista de todas as reservas.
+
+### `get_reservation(id)`
+
+- **Método:** `GET`
+- **Parâmetro:** `id` (ID da reserva)
+- **Retorno:** Detalhes da reserva especificada.
+
+### `add_reservation(user_id, hotel_id, date)`
+
+- **Método:** `POST`
+- **Parâmetros:** `user_id` (ID do usuário), `hotel_id` (ID do hotel), `date` (Data da reserva)
+- **Retorno:** Detalhes da reserva adicionada.
+
+## Modelos
+
+O aplicativo utiliza os seguintes modelos:
+
+- **Hotel:** Representa um hotel com `id`, `name` e `location`.
+- **Review:** Representa uma avaliação com `id`, `hotel_id`, `rating` e `review_text`.
+- **Reservation:** Representa uma reserva com `id`, `user_id`, `hotel_id` e `date`.
