@@ -1,20 +1,15 @@
-# Flask Reservation API
+# User Management SOAP API
 
-Uma API simples para gerenciar reservas usando Flask e SQLite. A API permite obter uma lista de reservas, obter informações sobre uma reserva específica e adicionar novas reservas.
+Este é um aplicativo de gerenciamento de usuários que fornece uma API SOAP usando Flask e Spyne. A aplicação permite a gestão de usuários por meio de operações SOAP.
 
 ## Tecnologias Utilizadas
 
-- [Flask](https://flask.palletsprojects.com/) - Micro framework para criação de aplicações web.
-- [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/) - Extensão para integração do Flask com SQLAlchemy e bancos de dados.
-- [SQLite](https://www.sqlite.org/) - Banco de dados SQL leve, usado para armazenamento de dados.
+- Python 3.6 ou superior
+- Flask
+- Spyne
+- SQLAlchemy
+- SQLite
 
-## Estrutura do Projeto
-hotel_service/ 
-├── app.py # Arquivo principal da aplicação Flask 
-├── models.py # Define os modelos de dados e a configuração do banco de dados 
-├── create_db.py # Script para instanciar o bando de dados 
-├── requirements.txt # Depêndencias da API 
-└── venv/ # Ambiente virtual (opcional)
 
 ## Configuração do Ambiente
 
@@ -67,56 +62,31 @@ Para iniciar o servidor Flask, execute o seguinte comando:
    ```sh
    python app.py
    ```
-A API estará disponível em ***http://127.0.0.1:5001***.
+A API estará disponível em ***http://127.0.0.1:5003***.
 
-## Endpoints
 
-### Obter todos os hotéis
+## Endpoints SOAP
 
-- URL: */users*
-- Método: GET
-- Resposta:
-   ```sh
-    [
-        {
-            "id": 1,
-            "name": "Felipe Andrade",
-            "email": "felipe_andrade@example.com"
-        }
-    ]
-   ```
+### `get_users`
 
-### Obter um hotel específico
+- **Método:** `GET`
+- **Retorno:** Lista de todos os usuários.
 
-- URL: */users/<id>*
-- Método: GET
-- Parâmetros:
-   - *id* (int) - ID do usuário
-- Resposta:
-   ```sh
-    {
-    "id": 1,
-    "name": "Felipe Andrade",
-    "email": "felipe_andrade@example.com"
-    }
-   ```
+### `get_user(id)`
 
-### Adicionar um novo hotel
+- **Método:** `GET`
+- **Parâmetro:** `id` (ID do usuário)
+- **Retorno:** Detalhes do usuário especificado.
 
-- URL: */users*
-- Método: POST
-- Corpo da Requisição:
-   ```sh
-    {
-        "name": "Felipe Andrade",
-        "email": "felipe_andrade@example.com"
-    }
-   ```
-- Resposta:
-   ```sh
-    {
-        "id": 1,
-        "name": "John Doe",
-        "email": "john@example.com"
-    }
-   ```
+### `add_user(name, email)`
+
+- **Método:** `POST`
+- **Parâmetros:** `name` (Nome do usuário), `email` (Email do usuário)
+- **Retorno:** Detalhes do usuário adicionado.
+
+## Modelos
+
+O aplicativo utiliza o seguinte modelo:
+
+- **User:** Representa um usuário com `id`, `name` e `email`.
+
