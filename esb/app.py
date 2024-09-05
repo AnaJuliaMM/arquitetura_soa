@@ -1,64 +1,42 @@
 from flask import Flask, jsonify, request
-import requests
+import zeep
 
 app = Flask(__name__)
 
-# URLs dos serviços
-HOTELS_SERVICE_URL = 'http://localhost:5001'
-USERS_SERVICE_URL = 'http://localhost:5003'
+HOTELS_SERVICE_URL = 'http://localhost:5001/soap?wsdl'
+USERS_SERVICE_URL = 'http://localhost:5003/soap?wsdl'
 
+hotels_client = zeep.Client(HOTELS_SERVICE_URL)
+users_client = zeep.Client(USERS_SERVICE_URL)
 
-
-# Função para transformar dados (exemplo simples)
-def transform_data(data):
-    # Adapte conforme necessário para transformar dados entre formatos
-    return data
-
-
-
-# Roteamento e orquestração
 @app.route('/esb/hotels', methods=['GET'])
 def get_hotels():
-    response = requests.get(f'{HOTELS_SERVICE_URL}/hotels')
-    data = response.json()
-    transformed_data = transform_data(data)
-    return jsonify(transformed_data)
+    response = hotels_client.service.get_hotels()
+    return jsonify(response)
 
 @app.route('/esb/reservations/<int:id>', methods=['GET'])
 def get_reservation(id):
-    response = requests.get(f'{HOTELS_SERVICE_URL}/reservations/{id}')
-    data = response.json()
-    transformed_data = transform_data(data)
-    return jsonify(transformed_data)
+    response = hotels_client.service.get_reservation(id)
+    return jsonify(response)
 
 @app.route('/esb/users/<int:id>', methods=['GET'])
 def get_user(id):
-    response = requests.get(f'{USERS_SERVICE_URL}/users/{id}')
-    data = response.json()
-    transformed_data = transform_data(data)
-    return jsonify(transformed_data)
+    response = users_client.service.get_user(id)
+    return jsonify(response)
 
 @app.route('/esb/complex-query', methods=['GET'])
 def complex_query():
     hotel_id = request.args.get('hotel_id')
     user_id = request.args.get('user_id')
     
-    # Consultar o serviço de reservas para obter as reservas
-    reservations_response = requests.get(f'{HOTELS_SERVICE_URL}/reservations', params={'hotel_id': hotel_id, 'user_id': user_id})
-    reservations_data = reservations_response.json()
+    reservations_response = hotels_client.service.get_reservations()
+    hotel_response = hotels_client.service.get_hotel(hotel_id)
+    user_response = users_client.service.get_user(user_id)
     
-    # Consultar o serviço de hotéis e usuários
-    hotel_response = requests.get(f'{HOTELS_SERVICE_URL}/hotels/{hotel_id}')
-    user_response = requests.get(f'{USERS_SERVICE_URL}/users/{user_id}')
-    
-    hotel_data = hotel_response.json()
-    user_data = user_response.json()
-    
-    # Combinar dados para fornecer uma resposta consolidada
     response = {
-        'hotel': hotel_data,
-        'user': user_data,
-        'reservations': reservations_data
+        'hotel': hotel_response,
+        'user': user_response,
+        'reservations': reservations_response
     }
     return jsonify(response)
 
