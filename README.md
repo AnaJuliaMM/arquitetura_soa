@@ -1,4 +1,4 @@
-# Arquitetura_soa
+# Seminário de Arquitetura de Software - Arquitetura de Software Orientada a Serviços (SOA)
 
 Este é um sistema simples de reserva de hotel desenvolvido em Python utilizando o framework Flask, demonstrando os princípios da Arquitetura Orientada a Serviços (SOA).
 
@@ -8,7 +8,7 @@ A Arquitetura Orientada a Serviços (SOA) é um modelo de design de software que
 
 ## 2. Implementação Prática
 
-Este projeto apresenta um exemplo prático de implementação da SOA através de um sistema de reserva de quartos de hotel utilizando Flask.
+Este projeto apresenta um exemplo prático (simples e ilustrativo) de implementação da SOA através de um sistema de reserva de quartos de hotel utilizando Flask.
 
 ## 3. Estrutura do Projeto
 arquitetura_soa
