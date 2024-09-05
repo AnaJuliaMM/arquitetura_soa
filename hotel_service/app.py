@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, Response, request
 from spyne import Application, rpc, ServiceBase, Integer, Unicode, Float, Iterable
 from spyne.protocol.soap import Soap11
 from spyne.server.wsgi import WsgiApplication
@@ -61,18 +61,31 @@ class HotelService(ServiceBase):
         db.session.commit()
         return str(new_reservation.to_dict())
 
-application = Application(
+soap_app = Application(
     [HotelService],
     'spyne.examples.hotel',
     in_protocol=Soap11(),
     out_protocol=Soap11()
 )
 
-soap_app = WsgiApplication(application)
+wsgi_app  = WsgiApplication(soap_app)
 
-@app.route('/soap', methods=['POST'])
+
+@app.route('/soap', methods=['GET', 'POST'])
 def soap():
-    return soap_app.wsgi_app
+    if request.method == 'GET':
+        # Handle WSDL requests
+        environ = request.environ
+        start_response = lambda status, headers: None
+        wsdl_response = wsgi_app(environ, start_response)
+        return Response(wsdl_response, mimetype='text/xml')
+    else:
+        # Handle SOAP requests
+        environ = request.environ
+        start_response = lambda status, headers: None
+        response = wsgi_app(environ, start_response)
+        return Response(response, status=200, mimetype='text/xml')
+
 
 if __name__ == '__main__':
     app.run(port=5001)
