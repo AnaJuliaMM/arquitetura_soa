@@ -48,22 +48,22 @@ Este projeto apresenta um exemplo prático de implementação da SOA através de
 
 ### Como Executar o Projeto:
 1. Clone este repositório:
-bash
+
+```bash
    git clone https://github.com/usuario/arquitetura_soa.git
+```
 
-### Navegue até o diretório do projeto:
-bash
-   cd arquitetura_soa
+2. Ative os serviços em API Flask seguindo o tutorial contido em cada diretório:
+- [Serviço de gerenciamento de hotel](hotel_service/README.md)
+- [Serviço de gerenciamento de usuário](user_service/README.md)
 
-### Instale as dependências:
-   
-bash
-   pip install -r requirements.txt
 
-### Execute o aplicativo:
-bash
-   flask run
-   
+3. Assim que os serviços estiverem disponíveis, ative o ESB:
+```bash
+   python app.py
+```
+
+
 ## 6. Fitness Functions
 Para garantir que os objetivos da SOA foram atingidos, você pode medir:
 
