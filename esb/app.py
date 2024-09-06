@@ -51,31 +51,6 @@ def get_user(id):
     response = users_client.service.get_user(id)
     return jsonify(response)
 
-@app.route('/esb/complex-query', methods=['GET'])
-def complex_query():
-    """
-    Realiza uma consulta complexa que inclui informações sobre um hotel, um usuário e todas as reservas.
-
-    Parâmetros:
-    - hotel_id (str): ID do hotel a ser consultado (obtido da query string).
-    - user_id (str): ID do usuário a ser consultado (obtido da query string).
-
-    Retorna:
-    Response: Resposta HTTP com os detalhes do hotel, usuário e todas as reservas em formato JSON.
-    """
-    hotel_id = request.args.get('hotel_id')
-    user_id = request.args.get('user_id')
-    
-    reservations_response = hotels_client.service.get_reservations()
-    hotel_response = hotels_client.service.get_hotel(hotel_id)
-    user_response = users_client.service.get_user(user_id)
-    
-    response = {
-        'hotel': hotel_response,
-        'user': user_response,
-        'reservations': reservations_response
-    }
-    return jsonify(response)
 
 if __name__ == '__main__':
     # Executa o aplicativo Flask na porta 5000
