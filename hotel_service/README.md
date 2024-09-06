@@ -64,7 +64,7 @@ Para iniciar o servidor Flask, execute o seguinte comando:
    ```
 A API estará disponível em ***http://127.0.0.1:5001***.
 
-## Endpoints SOAP
+## Endpoint SOAP
 
 
 ### `get_hotels`
@@ -118,6 +118,14 @@ A API estará disponível em ***http://127.0.0.1:5001***.
 - **Método:** `POST`
 - **Parâmetros:** `user_id` (ID do usuário), `hotel_id` (ID do hotel), `date` (Data da reserva)
 - **Retorno:** Detalhes da reserva adicionada.
+
+## Rota WSDL (para debugg)
+
+Para visualizar o acordo WSDL, acesse o seguinte endpoint:
+
+- **Rota:** `/soap?wsdl`
+- **Retorno:** Documentação do serviço em XML
+
 
 ## Modelos
 

@@ -84,6 +84,13 @@ A API estará disponível em ***http://127.0.0.1:5003***.
 - **Parâmetros:** `name` (Nome do usuário), `email` (Email do usuário)
 - **Retorno:** Detalhes do usuário adicionado.
 
+## Rota WSDL (para debugg)
+
+Para visualizar o acordo WSDL, acesse o seguinte endpoint:
+
+- **Rota:** `/soap?wsdl`
+- **Retorno:** Documentação do serviço em XML
+
 ## Modelos
 
 O aplicativo utiliza o seguinte modelo:
