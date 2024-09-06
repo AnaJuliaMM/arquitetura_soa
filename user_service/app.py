@@ -79,24 +79,33 @@ def soap():
     """
     Manipula as requisições SOAP para o endpoint /soap.
 
-    - Para requisições GET: Retorna o WSDL do serviço SOAP.
-    - Para requisições POST: Processa as mensagens SOAP e retorna a resposta.
+    - Para requisições GET: Retorna o WSDL (Web Services Description Language) do serviço SOAP.
+    - Para requisições POST: Processa as mensagens SOAP enviadas ao serviço e retorna a resposta.
 
     Retorna:
-    Response: Resposta HTTP com o WSDL ou a resposta SOAP, dependendo do método da requisição.
+    Response: Resposta HTTP contendo o WSDL ou a resposta SOAP, dependendo do método da requisição.
     """
+    # Verifica se a requisição é do tipo GET
     if request.method == 'GET':
-        # Manipula requisições WSDL
+        # Obtém o ambiente da requisição atual
         environ = request.environ
+        # Define uma função de resposta vazia (para ser usada pelo WSGI)
         start_response = lambda status, headers: None
+        # Chama a aplicação WSGI para gerar a resposta WSDL
         wsdl_response = wsgi_app(environ, start_response)
+        # Retorna o WSDL em formato XML como resposta HTTP
         return Response(wsdl_response, mimetype='text/xml')
     else:
-        # Manipula requisições SOAP
+        # Se não for GET, manipula as requisições SOAP (normalmente são requisições POST)
+        # Obtém o ambiente da requisição atual
         environ = request.environ
+        # Define uma função de resposta vazia (para ser usada pelo WSGI)
         start_response = lambda status, headers: None
+        # Chama a aplicação WSGI para processar a requisição SOAP
         response = wsgi_app(environ, start_response)
+        # Retorna a resposta SOAP processada em formato XML
         return Response(response, status=200, mimetype='text/xml')
+
 
 if __name__ == '__main__':
     # Executa o aplicativo Flask na porta 5003
